@@ -22,7 +22,7 @@ export default function Footer() {
               <div className="h-10 w-10 rounded-xl bg-gradient-to-br from-emerald-400 to-emerald-600 flex items-center justify-center shadow-lg shadow-emerald-600/20">
                 <span className="text-white font-bold text-lg">I</span>
               </div>
-              <span className="text-white font-bold text-xl">Insight</span>
+              <span className="text-white font-bold text-xl">GabaSeal</span>
             </Link>
             <p className="mt-4 text-sm text-gray-300">
               Secure academic document management platform using PKI technology for digital signing and verification.
@@ -56,8 +56,8 @@ export default function Footer() {
                   </Link>
                 </li>
                 <li>
-                  <Link href="#" className="text-sm text-gray-300 hover:text-white transition-colors duration-300">
-                    API Access
+                  <Link href="/register" className="text-sm text-gray-300 hover:text-white transition-colors duration-300">
+                    Residents & Students
                   </Link>
                 </li>
               </ul>
@@ -127,7 +127,7 @@ export default function Footer() {
         </div>
         <div className="mt-12 border-t border-gray-200/10 pt-8">
           <p className="text-center text-xs text-gray-400">
-            &copy; {new Date().getFullYear()} Insight. All rights reserved.
+            &copy; {new Date().getFullYear()} GabaSeal. All rights reserved.
           </p>
         </div>
       </div>

@@ -40,7 +40,7 @@ export default function HeroSection() {
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-emerald-600">
                 Document
               </span>{" "}
-              Management with Insight
+              Management with GabaSeal
             </motion.h1>
             <motion.p
               className="mt-6 text-lg md:text-xl text-gray-300 max-w-xl"
@@ -48,7 +48,7 @@ export default function HeroSection() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
             >
-              Insight provides organizations with a powerful platform to digitally sign, verify, and manage important
+              GabaSeal provides organizations with a powerful platform to digitally sign, verify, and manage important
               documents using PKI technology.
             </motion.p>
             <motion.div
@@ -120,9 +120,9 @@ export default function HeroSection() {
                   <div className="flex items-center justify-between mb-6">
                     <div className="flex items-center gap-2">
                       <div className="h-8 w-8 rounded-full bg-emerald-500 flex items-center justify-center">
-                        <span className="text-white font-bold text-lg">I</span>
+                        <span className="text-white font-bold text-lg">GS</span>
                       </div>
-                      <span className="text-white font-bold text-xl">Insight</span>
+                      <span className="text-white font-bold text-xl">GabaSeal</span>
                     </div>
                     <div className="flex items-center gap-2">
                       <div className="w-3 h-3 rounded-full bg-red-500"></div>

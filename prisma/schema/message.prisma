@@ -1,0 +1,90 @@
+enum EMessageStatus {
+     SENT
+     DELIVERED
+     SEEN
+     FAILED
+     DELETED
+     PENDING
+     DRAFT
+}
+
+enum EMessageType {
+     CHAT
+     COMMENT
+     SYSTEM
+     DOCUMENT_DISCUSSION
+     DOCUMENT_COMMENT
+     DOCUMENT_REPLY
+}
+
+model Message {
+     id String @id @default(uuid())
+     content String
+     type EMessageType @default(CHAT)
+     status EMessageStatus @default(SENT)
+     senderId String
+     receiverId String?
+     documentId String?
+
+     replyToId String?
+     replyTo Message? @relation("MessageReply", fields: [replyToId], references: [id], onDelete: SetNull)
+     comments Message[] @relation("MessageReply")
+
+     conversationId String?
+     conversation Conversation? @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+     
+     createdAt DateTime @default(now())
+     updatedAt DateTime @updatedAt
+     deletedAt DateTime?
+
+     attachements Attachment[]
+     mentions MessageMention[]
+}
+
+model Attachment {
+     id String @id @default(uuid())
+     url String
+     fileName String
+     fileType String
+     fileSize Int
+     size Int
+     
+     messageId String
+     message Message @relation(fields: [messageId], references: [id], onDelete: Cascade)
+     
+     createdAt DateTime @default(now())
+     updatedAt DateTime @updatedAt
+}
+
+enum EConversationType {
+     PRIVATE
+     GROUP
+     DOCUMENT
+     TASK
+}
+
+model Conversation {
+     id String @id @default(uuid())
+     title String?
+     type EConversationType @default(PRIVATE)
+     status EStatus @default(ACTIVE)
+
+     createdById String
+     
+     createdAt DateTime @default(now())
+     updatedAt DateTime @updatedAt
+
+     messages Message[]
+     participants String[]
+}
+
+model MessageMention {
+     id String @id @default(uuid())
+     messageId String
+     userId String
+
+     message Message @relation(fields: [messageId], references: [id], onDelete: Cascade)
+
+     createdAt DateTime @default(now())
+     updatedAt DateTime @updatedAt
+}

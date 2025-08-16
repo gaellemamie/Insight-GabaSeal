@@ -47,7 +47,7 @@ export default function ContactSection() {
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
-            Have questions about implementing Insight at your organization? Our team is here to help.
+            Have questions about implementing GabaSeal at your organization? Our team is here to help.
           </motion.p>
         </div>
 
@@ -142,10 +142,10 @@ export default function ContactSection() {
             <p className="text-gray-300">
               Prefer to email us directly? Reach out at{" "}
               <a
-                href="mailto:support@insight.com"
+                href="mailto:support@gabaseal.com"
                 className="text-emerald-400 font-medium hover:text-emerald-300 transition-colors duration-300"
               >
-                support@insight.com
+                support@gabaseal.com
               </a>
             </p>
           </motion.div>

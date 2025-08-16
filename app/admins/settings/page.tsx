@@ -58,8 +58,8 @@ interface ApiSettings {
 
 
 const mockGeneralSettings: GeneralSettings = {
-  platformName: "Insight Document Platform",
-  supportEmail: "support@insight.com",
+  platformName: "GabaSeal Document Platform",
+  supportEmail: "support@gabaseal.com",
   contactPhone: "+1 (555) 123-4567",
   defaultLanguage: "en",
   timeZone: "UTC",
@@ -82,21 +82,21 @@ const mockSecuritySettings: SecuritySettings = {
 }
 
 const mockEmailSettings: EmailSettings = {
-  smtpServer: "smtp.insight.com",
+  smtpServer: "smtp.gabaseal.com",
   smtpPort: 587,
-  smtpUsername: "notifications@insight.com",
+  smtpUsername: "notifications@gabaseal.com",
   smtpPassword: "••••••••••••",
-  senderName: "Insight Platform",
-  senderEmail: "notifications@insight.com",
+  senderName: "GabaSeal Platform",
+  senderEmail: "notifications@gabaseal.com",
   enableSSL: true,
 }
 
 const mockApiSettings: ApiSettings = {
   apiKey: "sk_live_51NxXXXXXXXXXXXXXXXXXXXXXX",
-  webhookUrl: "https://api.insight.com/webhooks/incoming",
+  webhookUrl: "https://api.gabaseal.com/webhooks/incoming",
   rateLimitPerMinute: 100,
   enableCors: true,
-  allowedOrigins: "insight.com, admin.insight.com",
+  allowedOrigins: "gabaseal.com, admin.gabaseal.com",
 }
 
 export default function SettingsPage() {
@@ -663,7 +663,7 @@ export default function SettingsPage() {
               <div className="bg-gray-50 p-4 rounded-md">
                 <h4 className="font-medium mb-2">API Documentation</h4>
                 <p className="text-sm text-gray-600 mb-2">
-                  Access the API documentation to learn how to integrate with the Insight platform.
+                  Access the API documentation to learn how to integrate with the GabaSeal platform.
                 </p>
                 <Button variant="outline">View API Documentation</Button>
               </div>

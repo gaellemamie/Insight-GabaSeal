@@ -1,5 +1,3 @@
-"use client"
-
 import HeroSection from "@/components/sections/hero-section"
 import HowItWorksSection from "@/components/sections/how-it-works-section"
 import BenefitsSection from "@/components/sections/benefits-section"

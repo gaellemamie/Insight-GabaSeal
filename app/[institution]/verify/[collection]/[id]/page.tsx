@@ -178,7 +178,7 @@ export default function VerifyPage() {
             transition={{ duration: 0.5, delay: 0.2 }}
           >
             <p className="text-gray-400 text-sm">
-              Powered by Insight Platform • Secure Document Verification
+              Powered by GabaSeal Platform • Secure Document Verification
             </p>
           </motion.div>
         </div>

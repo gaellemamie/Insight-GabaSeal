@@ -12,7 +12,7 @@ export default function HowItWorksSection() {
     {
       id: 1,
       name: "Upload",
-      description: "Upload documents individually or in bulk to the secure Insight platform.",
+      description: "Upload documents individually or in bulk to the secure GabaSeal platform.",
       icon: Upload,
       delay: 0,
     },

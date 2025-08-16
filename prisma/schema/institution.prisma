@@ -1,0 +1,90 @@
+
+model InstitutionCategory {
+     id String @id @default(uuid())
+     name String @unique
+     description String?
+     
+     createdAt DateTime @default(now())
+     updatedAt DateTime @updatedAt
+     institutions institution[]
+}
+
+enum EServiceType {
+     PRIVATE
+     PUBLIC
+}
+
+model institution {
+     id String @id @default(uuid())
+     name String @unique
+     email String @unique
+     phone String?
+     location String?
+     address String?
+     logoUrl String?
+     verifiedBy String 
+     field String 
+     categoryId String
+     category InstitutionCategory @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+     status EStatus @default(ACTIVE)
+     serviceType EServiceType @default(PRIVATE)
+     
+     createdAt DateTime @default(now())
+     updatedAt DateTime @updatedAt
+
+     departments Department[]
+}
+
+model Department {
+     id String @id @default(uuid())
+     name String
+     description String?
+     institutionId String
+     institution institution @relation(fields: [institutionId], references: [id], onDelete: Cascade)
+     
+     createdAt DateTime @default(now())
+     updatedAt DateTime @updatedAt
+
+     roles EmployeeRole[]
+     @@unique([name, institutionId])
+}
+
+enum EEmployeeRoleType {
+     ADMIN
+     EMPLOYEE
+     EDITOR
+     SIGNER
+}
+
+model EmployeeRole {
+     id String @id @default(uuid())
+     name String
+     description String?
+     status EStatus @default(ACTIVE)
+     signingMark String
+     
+     createdAt DateTime @default(now())
+     updatedAt DateTime @updatedAt
+
+     departmentId String
+     department Department @relation(fields: [departmentId], references: [id], onDelete: Cascade)
+
+     employee Employee?
+     @@unique([name, departmentId])
+}
+
+model Employee {
+     id String @id @default(uuid())
+     name String
+     email String @unique
+     phone String?
+     role EEmployeeRoleType @default(EMPLOYEE)
+     status EStatus @default(ACTIVE)
+     userId String
+     
+     createdAt DateTime @default(now())
+     updatedAt DateTime @updatedAt
+
+     employeeRoleId String @unique
+     employeeRole EmployeeRole @relation(fields: [employeeRoleId], references: [id], onDelete: Cascade)
+}

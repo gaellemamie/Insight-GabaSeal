@@ -1,0 +1,30 @@
+enum ELogType {
+     CREATE 
+     UPDATE 
+     DELETE 
+     VIEW 
+     DOWNLOAD 
+     LOGIN 
+     LOGOUT
+     PERMISSION_DENIED
+     SIGN 
+     VERIFY 
+     FAIL 
+}
+
+model Log {
+     id String @id @default(uuid ())
+     type ELogType
+     actionByUserId String?
+     actionOnUserId String?
+     userIp String
+     userAgent String?
+     resourceType String 
+     resourceId String?
+     changes String 
+     description String?
+     success Boolean @default(true)
+     createdAt DateTime @default(now())
+     
+
+}

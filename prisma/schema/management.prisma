@@ -1,0 +1,43 @@
+enum EAdminRole {
+     ADMIN
+     SUPER_ADMIN
+}
+
+model Admin {
+     id String @id @default(uuid())
+     email String @unique
+     name String
+     status EStatus @default(ACTIVE)
+     role EAdminRole @default(ADMIN)
+     
+     createdAt DateTime @default(now())
+     updatedAt DateTime @updatedAt
+     acitivityLogs AdminActivityLog[]
+     userId String
+}
+
+enum EAdminActivityType {
+     LOGIN
+     LOGOUT
+     PASSWORD_RESET
+     DELETE 
+     CREATE
+     UPDATE
+}
+
+model AdminActivityLog {
+     id String @id @default(uuid())
+     type EAdminActivityType
+     name String
+     path String 
+     module String 
+     entityId String?
+     entityName String?
+     signature String?
+     
+     createdAt DateTime @default(now())
+     updatedAt DateTime @updatedAt
+
+     adminId String
+     admin Admin @relation(fields: [adminId], references: [id], onDelete: Cascade)
+}
