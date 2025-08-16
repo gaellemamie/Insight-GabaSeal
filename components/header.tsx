@@ -28,12 +28,12 @@ export default function Header() {
       <nav className="mx-auto flex max-w-7xl items-center justify-between p-4 lg:px-8" aria-label="Global">
         <div className="flex lg:flex-1">
           <Link href="/" className="-m-1.5 p-1.5">
-            <span className="sr-only">Insight</span>
+            <span className="sr-only">Gaba Seal</span>
             <div className="flex items-center gap-2">
               <div className="h-10 w-10 rounded-xl bg-gradient-to-br from-navy-blue-600 to-navy-blue-800 flex items-center justify-center shadow-lg shadow-navy-blue-600/20">
-                <span className="text-white font-bold text-lg">I</span>
+                <span className="text-white font-bold text-lg">GS</span>
               </div>
-              <span className="text-navy-blue-900 font-bold text-xl">Insight</span>
+              <span className="text-navy-blue-900 font-bold text-xl">GabaSeal</span>
             </div>
           </Link>
         </div>
@@ -103,12 +103,12 @@ export default function Header() {
             <div className="flex h-full flex-col">
               <div className="flex items-center justify-between">
                 <Link href="/" className="-m-1.5 p-1.5" onClick={() => setMobileMenuOpen(false)}>
-                  <span className="sr-only">Insight</span>
+                  <span className="sr-only">Gaba Seal</span>
                   <div className="flex items-center gap-2">
                     <div className="h-10 w-10 rounded-xl bg-gradient-to-br from-navy-blue-600 to-navy-blue-800 flex items-center justify-center shadow-lg shadow-navy-blue-600/20">
                       <span className="text-white font-bold text-lg">I</span>
                     </div>
-                    <span className="text-navy-blue-900 font-bold text-xl">Insight</span>
+                    <span className="text-navy-blue-900 font-bold text-xl">Gaba Seal</span>
                   </div>
                 </Link>
                 <button

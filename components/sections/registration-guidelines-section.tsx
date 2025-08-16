@@ -80,7 +80,7 @@ export default function RegistrationGuidelinesSection() {
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
-            Follow these steps to get your organization set up on the Insight platform.
+            Follow these steps to get your organization set up on the GabaSeal platform.
           </motion.p>
         </div>
 

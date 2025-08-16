@@ -1,0 +1,50 @@
+enum ESeekerType {
+     RESIDENT 
+     STUDENT
+     PROFESSIONAL
+     OTHER
+}
+
+enum EGender {
+     MALE 
+     FEMALE
+     OTHER
+}
+model Seeker {
+     id String @id @default(cuid())
+     createdAt DateTime @default(now())
+     updatedAt DateTime @updatedAt
+
+     type ESeekerType
+     name String
+     email String @unique
+     phone String?
+     location String  
+     dob DateTime
+     gender EGender @default(OTHER)
+     nationalId String 
+
+     institutions String
+
+     userId String @unique                   
+     requests ServiceRequest[]
+}
+
+enum EServiceRequestStatus {
+     PENDING 
+     APPROVED
+     REJECTED
+}
+model ServiceRequest {
+     id String @id @default(uuid())
+     institutionId String 
+     status EServiceRequestStatus @default(PENDING)
+     
+     createdAt DateTime @default(now())
+     updatedAt DateTime @updatedAt()
+
+     seekerId String 
+     seeker Seeker @relation(fields: [seekerId], references: [id])
+
+     @@unique([seekerId, institutionId])
+}

@@ -30,7 +30,7 @@ export default function AboutSection() {
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ duration: 0.5, delay: 0.1 }}
           >
-            About Insight
+            About GabaSeal
           </motion.h2>
           <motion.p
             className="mt-4 text-lg text-gray-600 max-w-2xl mx-auto"
@@ -63,7 +63,7 @@ export default function AboutSection() {
                             <span className="text-white font-bold text-xl">I</span>
                           </div>
                         </div>
-                        <h3 className="text-2xl font-bold text-white mb-2">Insight Platform</h3>
+                        <h3 className="text-2xl font-bold text-white mb-2">GabaSeal Platform</h3>
                         <p className="text-gray-300">Securing the future of digital documents</p>
                       </div>
                     </div>
@@ -81,7 +81,7 @@ export default function AboutSection() {
               <div>
                 <h3 className="text-2xl font-semibold text-navy-blue-900 mb-3">Our Vision</h3>
                 <p className="text-gray-600">
-                  Insight was founded with a clear vision: to transform how documents are issued, shared, and verified.
+                  GabaSeal was founded with a clear vision: to transform how documents are issued, shared, and verified.
                   We believe in a world where organizations can issue secure documents, and recipients can verify them
                   instantly with complete confidence in their authenticity.
                 </p>

@@ -1,0 +1,67 @@
+enum EAlertSeverity {
+     INFO
+     WARNING
+     ERROR
+}
+
+enum EAlertyAudience {
+     ALL
+     USER
+     ADMIN
+}
+
+model Alert {
+     id String @id @default(uuid())
+     title String
+     message String
+     severity EAlertSeverity @default(INFO)
+     audience EAlertyAudience @default(ALL)
+     isRead Boolean @default(false)
+
+     createdAt DateTime @default(now())
+     updatedAt DateTime @updatedAt
+}
+
+
+
+model Reminder {
+     id String @id @default(uuid())
+     userId String
+     dueAt DateTime
+     repeatInterval Int? 
+     
+     createdAt DateTime @default(now())
+     updatedAt DateTime @updatedAt
+
+
+}
+
+enum ENotificationType {
+     ALERT 
+     REMINDER
+     NOTIFICATION
+     SYSTEM
+     ACTION_REQUIRED
+}
+
+enum EnotificationImportance {
+     LOW
+     MEDIUM
+     HIGH
+     CRITICAL
+}
+
+model Notification {
+     id String @id @default(uuid())
+     userId String
+     title String
+     message String
+     isRead Boolean @default(false)
+     type ENotificationType @default(NOTIFICATION)
+     importance EnotificationImportance @default(MEDIUM)
+     actionUrl String?
+     actionText String?
+     
+     createdAt DateTime @default(now())
+     updatedAt DateTime @updatedAt
+}

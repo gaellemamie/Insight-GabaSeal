@@ -93,7 +93,7 @@ export default function BenefitsSection() {
             transition={{ duration: 0.5 }}
             className="inline-block px-4 py-1 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-emerald-400 font-medium text-sm mb-4"
           >
-            Why Choose Insight
+            Why Choose GabaSeal
           </motion.div>
           <motion.h2
             className="text-4xl font-bold text-white"
@@ -109,7 +109,7 @@ export default function BenefitsSection() {
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
-            Discover how Insight transforms document security for organizations of all types.
+            Discover how GabaSeal transforms document security for organizations of all types.
           </motion.p>
         </div>
 

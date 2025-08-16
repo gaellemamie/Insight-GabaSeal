@@ -1,0 +1,64 @@
+model DocumentType {
+     id String @id @default(uuid())
+     name String 
+     formats String 
+     institutionId String 
+     templateUrl String 
+     signingMarkers String
+     createdAt DateTime @default(now())
+     updatedAt DateTime @updatedAt() 
+
+     documents Document[]
+     documentRequests DocumentRequest[]
+}
+
+enum EDocumentRequestStatus {
+     PENDING
+     IN_PROGRESS
+     APPROVED
+     REJECTED
+}
+
+enum ECertificationStatus {
+     UNCERTIFIED
+     CERTIFIED
+}
+model Document {
+     id String @id @default(uuid())
+     name String
+     url String
+     seekerId String?
+     signedBy String @default("")
+     unSignedBy String
+     groupName String @default("")
+     certificationStatus ECertificationStatus @default(UNCERTIFIED)
+
+     createdAt DateTime @default(now())
+     updatedAt DateTime @updatedAt()
+
+     documentTypeId String 
+     documentType DocumentType @relation(fields: [documentTypeId], references: [id])
+}
+
+model DocumentRequest {
+     id String @id @default(uuid())
+     description String 
+     documentUrl String?
+     seekerId String 
+     status EDocumentRequestStatus @default(PENDING)
+
+     documentTypeId String 
+     documentType DocumentType @relation(fields: [documentTypeId], references: [id])
+
+     createdAt DateTime @default(now())
+     updatedAt DateTime @updatedAt()
+}
+
+model Certificate {
+     id String @id @default(uuid())
+     url String 
+     userId String 
+
+     createdAt DateTime @default(now()) 
+     updatedAt DateTime @updatedAt()
+}

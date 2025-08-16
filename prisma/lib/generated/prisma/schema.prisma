@@ -1,0 +1,508 @@
+enum EUserType {
+  ADMIN
+  EMPLOYEE
+  SEEKER
+}
+
+enum EStatus {
+  ACTIVE
+  INACTIVE
+}
+
+model User {
+  id             String    @id @default(uuid())
+  email          String    @unique
+  password       String
+  type           EUserType @default(SEEKER)
+  status         EStatus   @default(ACTIVE)
+  image          String?
+  certificateUrl String?
+  signImageUrl   String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  accounts Account[]
+
+  passwordResetTokens PasswordResetToken?
+}
+
+model PasswordResetToken {
+  id        String   @id @default(uuid())
+  userId    String   @unique
+  token     String   @unique
+  expiresAt DateTime
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Account {
+  id                 String    @id @default(uuid())
+  userId             String
+  provider           String
+  providerAccountId  String
+  refreshToken       String?
+  accessToken        String?
+  accessTokenExpires DateTime?
+  user               User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model InstitutionCategory {
+  id          String  @id @default(uuid())
+  name        String  @unique
+  description String?
+
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  institutions institution[]
+}
+
+enum EServiceType {
+  PRIVATE
+  PUBLIC
+}
+
+model institution {
+  id          String              @id @default(uuid())
+  name        String              @unique
+  email       String              @unique
+  phone       String?
+  location    String?
+  address     String?
+  logoUrl     String?
+  verifiedBy  String
+  field       String
+  categoryId  String
+  category    InstitutionCategory @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  status      EStatus             @default(ACTIVE)
+  serviceType EServiceType        @default(PRIVATE)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  departments Department[]
+}
+
+model Department {
+  id            String      @id @default(uuid())
+  name          String
+  description   String?
+  institutionId String
+  institution   institution @relation(fields: [institutionId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  roles EmployeeRole[]
+
+  @@unique([name, institutionId])
+}
+
+enum EEmployeeRoleType {
+  ADMIN
+  EMPLOYEE
+  EDITOR
+  SIGNER
+}
+
+model EmployeeRole {
+  id          String  @id @default(uuid())
+  name        String
+  description String?
+  status      EStatus @default(ACTIVE)
+  signingMark String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  departmentId String
+  department   Department @relation(fields: [departmentId], references: [id], onDelete: Cascade)
+
+  employee Employee?
+
+  @@unique([name, departmentId])
+}
+
+model Employee {
+  id     String            @id @default(uuid())
+  name   String
+  email  String            @unique
+  phone  String?
+  role   EEmployeeRoleType @default(EMPLOYEE)
+  status EStatus           @default(ACTIVE)
+  userId String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  employeeRoleId String       @unique
+  employeeRole   EmployeeRole @relation(fields: [employeeRoleId], references: [id], onDelete: Cascade)
+}
+
+enum EAdminRole {
+  ADMIN
+  SUPER_ADMIN
+}
+
+model Admin {
+  id     String     @id @default(uuid())
+  email  String     @unique
+  name   String
+  status EStatus    @default(ACTIVE)
+  role   EAdminRole @default(ADMIN)
+
+  createdAt     DateTime           @default(now())
+  updatedAt     DateTime           @updatedAt
+  acitivityLogs AdminActivityLog[]
+  userId        String
+}
+
+enum EAdminActivityType {
+  LOGIN
+  LOGOUT
+  PASSWORD_RESET
+  DELETE
+  CREATE
+  UPDATE
+}
+
+model AdminActivityLog {
+  id         String             @id @default(uuid())
+  type       EAdminActivityType
+  name       String
+  path       String
+  module     String
+  entityId   String?
+  entityName String?
+  signature  String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  adminId String
+  admin   Admin  @relation(fields: [adminId], references: [id], onDelete: Cascade)
+}
+
+enum EMessageStatus {
+  SENT
+  DELIVERED
+  SEEN
+  FAILED
+  DELETED
+  PENDING
+  DRAFT
+}
+
+enum EMessageType {
+  CHAT
+  COMMENT
+  SYSTEM
+  DOCUMENT_DISCUSSION
+  DOCUMENT_COMMENT
+  DOCUMENT_REPLY
+}
+
+model Message {
+  id         String         @id @default(uuid())
+  content    String
+  type       EMessageType   @default(CHAT)
+  status     EMessageStatus @default(SENT)
+  senderId   String
+  receiverId String?
+  documentId String?
+
+  replyToId String?
+  replyTo   Message?  @relation("MessageReply", fields: [replyToId], references: [id], onDelete: SetNull)
+  comments  Message[] @relation("MessageReply")
+
+  conversationId String?
+  conversation   Conversation? @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  attachements Attachment[]
+  mentions     MessageMention[]
+}
+
+model Attachment {
+  id       String @id @default(uuid())
+  url      String
+  fileName String
+  fileType String
+  fileSize Int
+  size     Int
+
+  messageId String
+  message   Message @relation(fields: [messageId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum EConversationType {
+  PRIVATE
+  GROUP
+  DOCUMENT
+  TASK
+}
+
+model Conversation {
+  id     String            @id @default(uuid())
+  title  String?
+  type   EConversationType @default(PRIVATE)
+  status EStatus           @default(ACTIVE)
+
+  createdById String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  messages     Message[]
+  participants String[]
+}
+
+model MessageMention {
+  id        String @id @default(uuid())
+  messageId String
+  userId    String
+
+  message Message @relation(fields: [messageId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum ELogType {
+  CREATE
+  UPDATE
+  DELETE
+  VIEW
+  DOWNLOAD
+  LOGIN
+  LOGOUT
+  PERMISSION_DENIED
+  SIGN
+  VERIFY
+  FAIL
+}
+
+model Log {
+  id             String   @id @default(uuid())
+  type           ELogType
+  actionByUserId String?
+  actionOnUserId String?
+  userIp         String
+  userAgent      String?
+  resourceType   String
+  resourceId     String?
+  changes        String
+  description    String?
+  success        Boolean  @default(true)
+  createdAt      DateTime @default(now())
+}
+
+enum EAlertSeverity {
+  INFO
+  WARNING
+  ERROR
+}
+
+enum EAlertyAudience {
+  ALL
+  USER
+  ADMIN
+}
+
+model Alert {
+  id       String          @id @default(uuid())
+  title    String
+  message  String
+  severity EAlertSeverity  @default(INFO)
+  audience EAlertyAudience @default(ALL)
+  isRead   Boolean         @default(false)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Reminder {
+  id             String   @id @default(uuid())
+  userId         String
+  dueAt          DateTime
+  repeatInterval Int?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum ENotificationType {
+  ALERT
+  REMINDER
+  NOTIFICATION
+  SYSTEM
+  ACTION_REQUIRED
+}
+
+enum EnotificationImportance {
+  LOW
+  MEDIUM
+  HIGH
+  CRITICAL
+}
+
+model Notification {
+  id         String                  @id @default(uuid())
+  userId     String
+  title      String
+  message    String
+  isRead     Boolean                 @default(false)
+  type       ENotificationType       @default(NOTIFICATION)
+  importance EnotificationImportance @default(MEDIUM)
+  actionUrl  String?
+  actionText String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../lib/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum ESeekerType {
+  RESIDENT
+  STUDENT
+  PROFESSIONAL
+  OTHER
+}
+
+enum EGender {
+  MALE
+  FEMALE
+  OTHER
+}
+
+model Seeker {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  type       ESeekerType
+  name       String
+  email      String      @unique
+  phone      String?
+  location   String
+  dob        DateTime
+  gender     EGender     @default(OTHER)
+  nationalId String
+
+  institutions String
+
+  userId   String           @unique
+  requests ServiceRequest[]
+}
+
+enum EServiceRequestStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+model ServiceRequest {
+  id            String                @id @default(uuid())
+  institutionId String
+  status        EServiceRequestStatus @default(PENDING)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt()
+
+  seekerId String
+  seeker   Seeker @relation(fields: [seekerId], references: [id])
+
+  @@unique([seekerId, institutionId])
+}
+
+model DocumentType {
+  id             String   @id @default(uuid())
+  name           String
+  formats        String
+  institutionId  String
+  templateUrl    String
+  signingMarkers String
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt()
+
+  documents        Document[]
+  documentRequests DocumentRequest[]
+}
+
+enum EDocumentRequestStatus {
+  PENDING
+  IN_PROGRESS
+  APPROVED
+  REJECTED
+}
+
+enum ECertificationStatus {
+  UNCERTIFIED
+  CERTIFIED
+}
+
+model Document {
+  id                  String               @id @default(uuid())
+  name                String
+  url                 String
+  seekerId            String?
+  signedBy            String               @default("")
+  unSignedBy          String
+  groupName           String               @default("")
+  certificationStatus ECertificationStatus @default(UNCERTIFIED)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt()
+
+  documentTypeId String
+  documentType   DocumentType @relation(fields: [documentTypeId], references: [id])
+}
+
+model DocumentRequest {
+  id          String                 @id @default(uuid())
+  description String
+  documentUrl String?
+  seekerId    String
+  status      EDocumentRequestStatus @default(PENDING)
+
+  documentTypeId String
+  documentType   DocumentType @relation(fields: [documentTypeId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt()
+}
+
+model Certificate {
+  id     String @id @default(uuid())
+  url    String
+  userId String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt()
+}

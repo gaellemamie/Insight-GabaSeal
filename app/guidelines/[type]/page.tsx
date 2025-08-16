@@ -141,7 +141,7 @@ const institutionData = {
       },
       {
         title: "Integration with EHR Systems",
-        description: "Connect Insight with your existing Electronic Health Record systems.",
+        description: "Connect GabaSeal with your existing Electronic Health Record systems.",
       },
     ],
     features: [
@@ -220,7 +220,7 @@ export default function InstitutionGuidelines() {
           <div className="text-center mb-16">
             <h2 className="text-3xl font-bold text-navy-blue-900">Implementation Steps</h2>
             <p className="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">
-              Follow these steps to get your {institution.name.toLowerCase()} set up on the Insight platform.
+              Follow these steps to get your {institution.name.toLowerCase()} set up on the GabaSeal platform.
             </p>
           </div>
 
@@ -277,7 +277,7 @@ export default function InstitutionGuidelines() {
           <div className="text-center mb-16">
             <h2 className="text-3xl font-bold text-navy-blue-900">Key Features for {institution.name}</h2>
             <p className="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">
-              Insight provides specialized features designed specifically for {institution.name.toLowerCase()}.
+              GabaSeal provides specialized features designed specifically for {institution.name.toLowerCase()}.
             </p>
           </div>
 

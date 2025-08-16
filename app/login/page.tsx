@@ -7,16 +7,21 @@ import { useInView } from "framer-motion"
 import { useRef, useState, FormEvent } from "react"
 import { Input } from "@/components/ui/input"
 import { useRouter } from 'next/navigation'
+import { toast } from "sonner"
+import { getRedirectPath } from "@/utils/auth"
+import { getSessionUser } from "@/lib/actions/auth/user"
+import { CredentialsSignin } from "@/lib/actions/auth/auth"
+import { useAuthContext } from "@/lib/contexts/AuthContext"
 
 export default function LoginPage() {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, amount: 0.2 })
   const router = useRouter()
-  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const {setUser} = useAuthContext();
   const [formData, setFormData] = useState({
     email: '',
     password: '',
-    pfx: null as File | null,
     rememberMe: false
   })
   const [error, setError] = useState('')
@@ -31,14 +36,25 @@ export default function LoginPage() {
       if (!formData.email || !formData.password) {
         throw new Error('Please fill in all required fields')
       }
-      console.log('Form data:', formData)
+      const data = new FormData();
+      data.append("email", formData.email);
+      data.append("password", formData.password);
+      const result= await CredentialsSignin(data);
+          if (result) {
+              if(result.error){
+                    return toast.error("Invalid email or password");
+              }
 
-
-
-      await new Promise(resolve => setTimeout(resolve, 1000))
-
-
-
+              const {user} = await getSessionUser();
+              if(!user) {
+                    return toast.error("Error logging in!", {description: "Try again or contact support."});
+              }
+              setUser(user);
+              toast.success("Login successful");
+              return router.push(getRedirectPath(user.type));
+          } else {
+              return toast.error("Error logging in");
+        }
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An error occurred during login')
     } finally {
@@ -130,19 +146,6 @@ export default function LoginPage() {
                     value={formData.password}
                     onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                     className="mt-1 block w-full rounded-lg border-white/10 bg-white/5 text-white shadow-sm focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/50 focus:outline-none transition-all duration-200 p-2"
-                  />
-                </div>
-
-                <div className="grid w-full max-w-sm items-center gap-1.5">
-                  <label htmlFor="pfx" className="block text-sm font-medium text-gray-300">
-                    pfx
-                  </label>
-                  <Input 
-                    id="pfx" 
-                    type="file" 
-                    accept=".pfx"
-                    onChange={(e) => setFormData({ ...formData, pfx: e.target.files?.[0] || null })}
-                    className="mt-1 block w-full rounded-lg border-white/10 bg-white/5 text-white shadow-sm focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/50 focus:outline-none transition-all duration-200 p-2" 
                   />
                 </div>
 

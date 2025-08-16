@@ -33,12 +33,12 @@ import Header from "@/components/header"
 const DOCUMENTATION_SECTIONS = {
   overview: {
     title: "Overview",
-    description: "Learn about the Insight Platform and its capabilities",
+    description: "Learn about the GabaSeal Platform and its capabilities",
     icon: BookOpen,
   },
   workflow: {
     title: "Workflow",
-    description: "Understand the document lifecycle in Insight",
+    description: "Understand the document lifecycle in GabaSeal",
     icon: FileText,
   },
   features: {
@@ -48,7 +48,7 @@ const DOCUMENTATION_SECTIONS = {
   },
   impact: {
     title: "Impact",
-    description: "See how Insight transforms document management",
+    description: "See how GabaSeal transforms document management",
     icon: Globe,
   },
   developers: {
@@ -101,7 +101,7 @@ const WORKFLOW_STEPS = [
     id: "sending",
     title: "Sending to Users",
     description:
-      "Documents and metadata can be emailed directly to users. Option to automate email upon signing. Documents can include QR code for scanning, which direct to insight for information about document.",
+      "Documents and metadata can be emailed directly to users. Option to automate email upon signing. Documents can include QR code for scanning, which direct to GabaSeal for information about document.",
     icon: Mail,
     color: "bg-purple-100 text-purple-700",
   },
@@ -209,7 +209,7 @@ export default function DocumentationPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
             >
-              Insight Platform Documentation
+              GabaSeal Platform Documentation
             </motion.h1>
             <motion.p
               className="text-lg text-gray-300 max-w-3xl mx-auto"
@@ -217,7 +217,7 @@ export default function DocumentationPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.1 }}
             >
-              Welcome to the official documentation for the Insight Platform, a digital document management and signing
+              Welcome to the official documentation for the GabaSeal Platform, a digital document management and signing
               system built for modern institutions.
             </motion.p>
 
@@ -303,10 +303,10 @@ export default function DocumentationPage() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5 }}
                 >
-                  <h2 className="text-2xl font-bold text-navy-blue-900 mb-4">What is Insight Platform?</h2>
+                  <h2 className="text-2xl font-bold text-navy-blue-900 mb-4">What is GabaSeal Platform?</h2>
                   <div className="bg-white rounded-lg shadow-sm border border-gray-100 p-6">
                     <p className="text-gray-700 leading-relaxed">
-                      Insight Platform is a web-based application that streamlines the document lifecycle — from upload,
+                      GabaSeal Platform is a web-based application that streamlines the document lifecycle — from upload,
                       organization, and digital signing to distribution and bulk notifications. It enables institutions
                       to manage their documents securely and efficiently.
                     </p>
@@ -414,7 +414,7 @@ export default function DocumentationPage() {
                 >
                   <h2 className="text-2xl font-bold text-navy-blue-900 mb-4">How It Works — System Flow</h2>
                   <p className="text-gray-700 mb-6">
-                    The Insight Platform follows a structured workflow to ensure secure and efficient document
+                    The GabaSeal Platform follows a structured workflow to ensure secure and efficient document
                     management. Here's how the system works:
                   </p>
 
@@ -472,7 +472,7 @@ export default function DocumentationPage() {
                 >
                   <h2 className="text-2xl font-bold text-navy-blue-900 mb-4">Platform Features</h2>
                   <p className="text-gray-700 mb-6">
-                    Insight Platform offers a comprehensive set of features designed to streamline document management
+                    GabaSeal Platform offers a comprehensive set of features designed to streamline document management
                     for institutions of all types.
                   </p>
 
@@ -516,7 +516,7 @@ export default function DocumentationPage() {
                 >
                   <h2 className="text-2xl font-bold text-navy-blue-900 mb-4">Impact</h2>
                   <p className="text-gray-700 mb-6">
-                    Insight Platform transforms document management for institutions, delivering significant benefits
+                    GabaSeal Platform transforms document management for institutions, delivering significant benefits
                     across multiple dimensions.
                   </p>
 
@@ -641,7 +641,7 @@ export default function DocumentationPage() {
                   <Card className="border-none shadow-sm">
                     <CardHeader>
                       <CardTitle>Case Studies</CardTitle>
-                      <CardDescription>Real-world examples of Insight Platform in action</CardDescription>
+                      <CardDescription>Real-world examples of GabaSeal Platform in action</CardDescription>
                     </CardHeader>
                     <CardContent>
                       <div className="space-y-4">
@@ -682,7 +682,7 @@ export default function DocumentationPage() {
                 >
                   <h2 className="text-2xl font-bold text-navy-blue-900 mb-4">Developer Documentation</h2>
                   <p className="text-gray-700 mb-6">
-                    Technical resources for developers integrating with the Insight Platform.
+                    Technical resources for developers integrating with the GabaSeal Platform.
                   </p>
 
                   <Card className="border-none shadow-sm">

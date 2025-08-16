@@ -1,0 +1,55 @@
+
+enum EUserType {
+     ADMIN
+     EMPLOYEE
+     SEEKER
+}
+
+enum EStatus {
+     ACTIVE
+     INACTIVE
+}
+
+
+model User {
+     id String @id @default(uuid())
+     email String @unique
+     password String
+     type EUserType @default(SEEKER)
+     status EStatus @default(ACTIVE)
+     image String?
+     certificateUrl String?
+     signImageUrl String?
+     
+     createdAt DateTime @default(now())
+     updatedAt DateTime @updatedAt
+
+     accounts Account[]
+
+     passwordResetTokens PasswordResetToken? 
+}
+
+model PasswordResetToken {
+     id String @id @default(uuid())
+     userId String @unique
+     token String @unique
+     expiresAt DateTime
+
+     user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+     createdAt DateTime @default(now())
+     updatedAt DateTime @updatedAt
+}
+
+model Account {
+     id                 String  @id @default(uuid())
+     userId             String
+     provider           String
+     providerAccountId  String
+     refreshToken       String?
+     accessToken        String?
+     accessTokenExpires DateTime?
+     user               User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+     @@unique([provider, providerAccountId])
+}

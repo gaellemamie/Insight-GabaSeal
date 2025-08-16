@@ -98,7 +98,7 @@ export default function InstitutionsSection() {
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
-            Insight provides specialized document security solutions for various types of institutions and
+            GabaSeal provides specialized document security solutions for various types of institutions and
             organizations.
           </motion.p>
         </div>
